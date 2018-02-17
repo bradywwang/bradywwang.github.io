@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2018/02/17/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2015/08/19/MVC与MVP模式的区别和联系/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="bradywang">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/02/17/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2015/08/19/MVC与MVP模式的区别和联系/" itemprop="url">MVC与MVP模式的区别和联系</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-17T11:15:32+08:00">
-                2018-02-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-19T13:22:20+08:00">
+                2015-08-19
               </time>
             
 
@@ -300,15 +300,1345 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+            <p>之前一直不清楚MVC模式和MVP模式的区别，今天查阅相关资料，找到了关于MVC和MVP在Android使用中的一些例子。<br>首先是MVC模式，这个模式应该已经用的很多了，MVC也就是Model、View、Controler（模型视图控制器模式）其中，Model层负责数据处理，view层负责界面交互的显示操作，而Controler控制器负责处理相关的应用逻辑。在Android应用的开发过程中，Model一般就是一些关于数据处理类似于网络通信、数据库访问等的一些执行方法等。Controler在Android中一般就是Activity、Service、ContentProvider等，负责处理一些关于逻辑上的问题。而View负责界面交互的显示，在Android中通常表现为XML文件。<br>MVC模式通常用于将视图与控制逻辑相分离，对应用进行解耦。但是解耦的效果并不是很好。<br><a href="http://wwdream-wordpress.stor.sinaapp.com/uploads/2015/08/1426239008578777.png" target="_blank" rel="noopener"><img src="http://wwdream-wordpress.stor.sinaapp.com/uploads/2015/08/1426239008578777.png" alt="1426239008578777"></a></p>
+<p>从这张图中我们可以看到由于View可以与Model进行交互，直接获取Model的数据，而Model也可以直接对View进行操作（例如游标操作等），View不可避免的会含有一些逻辑信息，存在一定的耦合度。MVP就是为了解决这种耦合而存在的。Presenter的存在完美的解决了这种问题。Presenter负责视图层与模型层的交互，使得模型层不含有任何视图层的引用，Presenter层直接访问数据层获取信息，view层调用Presenter相应方法获取数据并显示，如果需要对界面显示进行回调的话，直接通过Presenter调用View相关方法进行回调。</p>
+<p>对于MVP模式，我找了一个例子，可以更好的理解MVP模式。</p>
+<p>首先是两个接口，分别为LoginVIew和LoginPresenter</p>
+<p>LoginView：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public interface LoginView &#123;</span><br><span class="line">    public void showProgress();</span><br><span class="line"></span><br><span class="line">    public void hideProgress();</span><br><span class="line"></span><br><span class="line">    public void setUsernameError();</span><br><span class="line"></span><br><span class="line">    public void setPasswordError();</span><br><span class="line"></span><br><span class="line">    public void navigateToHome();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface LoginPresenter &#123;</span><br><span class="line">    public void validateCredentials(String username, String password);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>OnLoginfinishedListener：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public interface OnLoginFinishedListener &#123;</span><br><span class="line"></span><br><span class="line">    public void onUsernameError();</span><br><span class="line"></span><br><span class="line">    public void onPasswordError();</span><br><span class="line"></span><br><span class="line">    public void onSuccess();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是这两个接口的实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class LoginPresenterImpl implements LoginPresenter, OnLoginFinishedListener &#123;</span><br><span class="line"></span><br><span class="line">    private LoginView loginView;</span><br><span class="line">    private LoginInteractor loginInteractor;</span><br><span class="line"></span><br><span class="line">    public LoginPresenterImpl(LoginView loginView) &#123;</span><br><span class="line">        this.loginView = loginView;</span><br><span class="line">        this.loginInteractor = new LoginInteractorImpl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override public void validateCredentials(String username, String password) &#123;</span><br><span class="line">        loginView.showProgress();</span><br><span class="line">        loginInteractor.login(username, password, this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override public void onUsernameError() &#123;</span><br><span class="line">        loginView.setUsernameError();</span><br><span class="line">        loginView.hideProgress();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override public void onPasswordError() &#123;</span><br><span class="line">        loginView.setPasswordError();</span><br><span class="line">        loginView.hideProgress();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override public void onSuccess() &#123;</span><br><span class="line">        loginView.navigateToHome();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class LoginInteractorImpl implements LoginInteractor &#123;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void login(final String username, final String password, final OnLoginFinishedListener listener) &#123;</span><br><span class="line">    // Mock login. I&apos;m creating a handler to delay the answer a couple of seconds</span><br><span class="line">    new Handler().postDelayed(new Runnable() &#123;</span><br><span class="line">        @Override public void run() &#123;</span><br><span class="line">            boolean error = false;</span><br><span class="line">            if (TextUtils.isEmpty(username))&#123;</span><br><span class="line">                listener.onUsernameError();</span><br><span class="line">                error = true;</span><br><span class="line">            &#125;</span><br><span class="line">            if (TextUtils.isEmpty(password))&#123;</span><br><span class="line">                listener.onPasswordError();</span><br><span class="line">                error = true;</span><br><span class="line">            &#125;</span><br><span class="line">            if (!error)&#123;</span><br><span class="line">                listener.onSuccess();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, 2000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>}<br>LoginActivity：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class LoginActivity extends Activity implements LoginView, View.OnClickListener &#123;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">private ProgressBar progressBar;</span><br><span class="line">private EditText username;</span><br><span class="line">private EditText password;</span><br><span class="line">private LoginPresenter presenter;</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">    super.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_login);</span><br><span class="line"></span><br><span class="line">    progressBar = (ProgressBar) findViewById(R.id.progress);</span><br><span class="line">    username = (EditText) findViewById(R.id.username);</span><br><span class="line">    password = (EditText) findViewById(R.id.password);</span><br><span class="line">    findViewById(R.id.button).setOnClickListener(this);</span><br><span class="line"></span><br><span class="line">    presenter = new LoginPresenterImpl(this);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override public void showProgress() &#123;</span><br><span class="line">    progressBar.setVisibility(View.VISIBLE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override public void hideProgress() &#123;</span><br><span class="line">    progressBar.setVisibility(View.GONE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override public void setUsernameError() &#123;</span><br><span class="line">    username.setError(getString(R.string.username_error));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override public void setPasswordError() &#123;</span><br><span class="line">    password.setError(getString(R.string.password_error));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override public void navigateToHome() &#123;</span><br><span class="line">    startActivity(new Intent(this, MainActivity.class));</span><br><span class="line">    finish();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override public void onClick(View v) &#123;</span><br><span class="line">    presenter.validateCredentials(username.getText().toString(), password.getText().toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>}<br>我们可以看到，LoginActivity实现了LoginView接口，并且给出了其几个方法的实现。并且有一个LoginPresenter成员，负责处理与登陆有关的操作。例如OnResume就调用了presenter的OnResume方法。<br>在LoginPresenter接口的实现方法LoginPresenterImpl中，持有了MainActivity实现的LoginView方法，通过在操作该接口的一些方法实现对MainActivity进行回调。<br>总结一下，MVP模式由于没有视图层和模型层的耦合，可以完全的对视图进行解耦，通过相关的类进行操作，也很容易对其进行单元测试。但是由于MVP模式含有大量的接口，大量的使用可能会降低程序的可读性，让代码非常繁杂，所以可以只在部分代码中使用该模式，将模型层与视图层进行完全分离。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2015/08/14/正则表达式的应用：Pattern和Matcher类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bradywang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="brady的小小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/08/14/正则表达式的应用：Pattern和Matcher类/" itemprop="url">正则表达式的应用：Pattern和Matcher类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-14T13:21:17+08:00">
+                2015-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>感谢 <a href="http://blog.csdn.net/kofandlizi/article/details/7323863" target="_blank" rel="noopener">http://blog.csdn.net/kofandlizi/article/details/7323863</a></p>
+<p>1.捕获组</p>
+<p>捕获组通过从左到右计算开括号开编号。((A)(B(C)))可以分为以下四个组</p>
+<p>1.((A)(B(C)))</p>
+<p>2.(A)</p>
+<p>3.(B(C))</p>
+<p>4.(C)</p>
+<p>捕获组具体知识参照<a href="http://blog.csdn.net/lxcnn/article/details/4146148" target="_blank" rel="noopener">http://blog.csdn.net/lxcnn/article/details/4146148</a></p>
+<p>2.Pattern类</p>
+<p>Pattern类用于创建一个正则表达式，它构造函数为私有构造函数，使用Pattern.complie(String regex)简单工厂方法创建正则表达式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(“\w+”);</span><br><span class="line">p.pattern();//返回 \w+</span><br></pre></td></tr></table></figure>
+<p>p.pattern返回正则表达式的字符串形式</p>
+<p>Pattern相关函数</p>
+<ul>
+<li>Pattern.split(CharSequence input)</li>
+</ul>
+<p>Pattern有一个split(CharSequence input)方法,用于分隔字符串,并返回一个String[],我猜String.split(String regex)就是通过Pattern.split(CharSequence input)来实现的.<br>Java代码示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(“\d+”);</span><br><span class="line">String[] str=p.split(“我的QQ是:456456我的电话是:0532214我的邮箱是:aaa@aaa.com”);</span><br></pre></td></tr></table></figure>
+<p>结果:str[0]=”我的QQ是:” str[1]=”我的电话是:” str[2]=”我的邮箱是:<a href="mailto:aaa@aaa.com" target="_blank" rel="noopener">aaa@aaa.com</a>”* Pattern.matcher(String regex,CharSequence input)</p>
+<p>Pattern.matcher(String regex,CharSequence input)是一个静态方法,用于快速匹配字符串,该方法适合用于只匹配一次,且匹配全部字符串.<br>Java代码示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Pattern.matches(“\d+”,”2223”);//返回true</span><br><span class="line">Pattern.matches(“\d+”,”2223aa”);//返回false,需要匹配到所有字符串才能返回true,这里aa不能匹配到</span><br><span class="line">Pattern.matches(“\d+”,”22bb23”);//返回false,需要匹配到所有字符串才能返回true,这里bb不能匹配到</span><br></pre></td></tr></table></figure>
+<p>* 3.Pattern.matcher(CharSequence input)</p>
+<p>3.Matcher类</p>
+<ul>
+<li><p>​</p>
+</li>
+<li><p>Matcher.matches()/ Matcher.lookingAt()/ Matcher.find()</p>
+</li>
+</ul>
+<p>Matcher类提供三个匹配操作方法,三个方法均返回boolean类型,当匹配到时返回true,没匹配到则返回false</p>
+<p>matches()对整个字符串进行匹配,只有整个字符串都匹配了才返回true<br>Java代码示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(“\d+”);</span><br><span class="line">Matcher m=p.matcher(“22bb23”);</span><br><span class="line">m.matches();//返回false,因为bb不能被\d+匹配,导致整个字符串匹配未成功.</span><br><span class="line">Matcher m2=p.matcher(“2223”);</span><br><span class="line">m2.matches();//返回true,因为\d+匹配到了整个字符串</span><br><span class="line">lookingAt()对前面的字符串进行匹配,只有匹配到的字符串在最前面才返回true</span><br></pre></td></tr></table></figure>
+<p>lookingAt()对前面的字符串进行匹配,只有匹配到的字符串在最前面才返回true</p>
+<p>Java代码示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(“\d+”);</span><br><span class="line">Matcher m=p.matcher(“22bb23”);</span><br><span class="line">m.lookingAt();//返回true,因为\d+匹配到了前面的22</span><br><span class="line">Matcher m2=p.matcher(“aa2223”);</span><br><span class="line">m2.lookingAt();//返回false,因为\d+不能匹配前面的aa</span><br></pre></td></tr></table></figure>
+<p>find()对字符串进行匹配,匹配到的字符串可以在任何位置.</p>
+<p>Java代码示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(“\d+”);</span><br><span class="line">Matcher m=p.matcher(“22bb23”);</span><br><span class="line">m.find();//返回true</span><br><span class="line">Matcher m2=p.matcher(“aa2223”);</span><br><span class="line">m2.find();//返回true</span><br><span class="line">Matcher m3=p.matcher(“aa2223bb”);</span><br><span class="line">m3.find();//返回true</span><br><span class="line">Matcher m4=p.matcher(“aabb”);</span><br><span class="line">m4.find();//返回false</span><br></pre></td></tr></table></figure>
+<p>Mathcer.start()/ Matcher.end()/ Matcher.group()</p>
+<p>当使用matches(),lookingAt(),find()执行匹配操作后,就可以利用以上三个方法得到更详细的信息.</p>
+<p>start()返回匹配到的子字符串在字符串中的索引位置.</p>
+<p>end()返回匹配到的子字符串的最后一个字符在字符串中的索引位置.</p>
+<p>group()返回匹配到的子字符串</p>
+<p>Java代码示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(“\d+”);</span><br><span class="line">Matcher m=p.matcher(“aaa2223bb”);</span><br><span class="line">m.find();//匹配2223</span><br><span class="line">m.start();//返回3</span><br><span class="line">m.end();//返回7,返回的是2223后的索引号</span><br><span class="line">m.group();//返回2223</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Mathcer m2=m.matcher(“2223bb”);</span><br><span class="line">m.lookingAt();   //匹配2223</span><br><span class="line">m.start();   //返回0,由于lookingAt()只能匹配前面的字符串,所以当使用lookingAt()匹配时,start()方法总是返回0</span><br><span class="line">m.end();   //返回4</span><br><span class="line">m.group();   //返回2223</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Matcher m3=m.matcher(“2223bb”);</span><br><span class="line">m.matches();   //匹配整个字符串</span><br><span class="line">m.start();   //返回0,原因相信大家也清楚了</span><br><span class="line">m.end();   //返回6,原因相信大家也清楚了,因为matches()需要匹配所有字符串</span><br><span class="line">m.group();   //返回2223bb</span><br></pre></td></tr></table></figure>
+<p>start(),end(),group()均有一个重载方法它们是start(int i),end(int i),group(int i)专用于分组操作,Mathcer类还有一个groupCount()用于返回有多少组.</p>
+<p>Java代码示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(“([a-z]+)(\d+)”);</span><br><span class="line">Matcher m=p.matcher(“aaa2223bb”);</span><br><span class="line">m.find();   //匹配aaa2223</span><br><span class="line">m.groupCount();   //返回2,因为有2组</span><br><span class="line">m.start(1);   //返回0 返回第一组匹配到的子字符串在字符串中的索引号</span><br><span class="line">m.start(2);   //返回3</span><br><span class="line">m.end(1);   //返回3 返回第一组匹配到的子字符串的最后一个字符在字符串中的索引位置.</span><br><span class="line">m.end(2);   //返回7</span><br><span class="line">m.group(1);   //返回aaa,返回第一组匹配到的子字符串</span><br><span class="line">m.group(2);   //返回2223,返回第二组匹配到的子字符串</span><br></pre></td></tr></table></figure>
+<p>现在我们使用一下稍微高级点的正则匹配操作,例如有一段文本,里面有很多数字,而且这些数字是分开的,我们现在要将文本中所有数字都取出来,利用java的正则操作是那么的简单.</p>
+<p>Java代码示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Pattern p=Pattern.compile(“\d+”);</span><br><span class="line">Matcher m=p.matcher(“我的QQ是:456456 我的电话是:0532214 我的邮箱是:aaa123@aaa.com”);</span><br><span class="line">while(m.find()) &#123;</span><br><span class="line">     System.out.println(m.group());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出:</p>
+<p>456456</p>
+<p>0532214</p>
+<p>123</p>
+<p>如将以上while()循环替换成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">while(m.find()) &#123;</span><br><span class="line">     System.out.println(m.group());</span><br><span class="line">     System.out.print(“start:”+m.start());</span><br><span class="line">     System.out.println(“ end:”+m.end());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>则输出:</p>
+<p>456456</p>
+<p>start:6 end:12</p>
+<p>0532214</p>
+<p>start:19 end:26</p>
+<p>123</p>
+<p>start:36 end:39</p>
+<p>现在大家应该知道,每次执行匹配操作后start(),end(),group()三个方法的值都会改变,改变成匹配到的子字符串的信息,以及它们的重载方法,也会改变成相应的信息.<br>注意:只有当匹配操作成功,才可以使用start(),end(),group()三个方法,否则会抛出java.lang.IllegalStateException,也就是当matches(),lookingAt(),find()其中任意一个方法返回true时,才可以使用.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2015/08/14/Android中几种有可能会导致内存泄露的情况/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bradywang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="brady的小小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/08/14/Android中几种有可能会导致内存泄露的情况/" itemprop="url">Android中几种有可能会导致内存泄露的情况</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-14T13:20:20+08:00">
+                2015-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.Static静态成员导致的内存泄露</p>
+<p>将占用大量内存空间的变量声明为static静态类型。当Activity被销毁的时候，由于静态成员的缘故，所占用的内存空间并没有得到及时的释放，最终导致内存泄漏。所以不要在静态空间中放太大的资源，如果一定要放，需要在结束的时候对其进行释放和清理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends Activity &#123;</span><br><span class="line">    private static final int ARRAY_SIZE = 100;</span><br><span class="line">    private static Drawable[] sTestBitmap = new Drawable[ARRAY_SIZE];</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        for (int i = 0 ; i &lt; ARRAY_SIZE ; i++) &#123;</span><br><span class="line">            sTestBitmap[i] = getResources().getDrawable(R.drawable.test);</span><br><span class="line">        &#125;</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onDestroy() &#123;</span><br><span class="line">        super.onDestroy();</span><br><span class="line">        /*for (int i = 0 ; i &lt; ARRAY_SIZE ; i++) &#123;</span><br><span class="line">            sTestBitmap[i] = null;</span><br><span class="line">        &#125;</span><br><span class="line">        sTestBitmap = null;</span><br><span class="line">        System.gc();*/</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.匿名内部类的使用 每一个匿名内部类都持有一个外部类的引用，当我们如果在一个匿名类中启动一个线程，那么它将一直持有外部类的引用，直到线程结束才能将内存空间释放。当我们在MainActivity中启动一个线程，虽然退出了该Activity，但是进程还在运行，MainActivity所占用的内存空间将得不到释放，导致最后的内存泄漏</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends Activity &#123;</span><br><span class="line">    private Drawable mTestBitmap = null;</span><br><span class="line">    private Thread mThread = null;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        mThread = new Thread(new Runnable() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                while(true) &#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        mThread.start();</span><br><span class="line">        mTestBitmap = getResources().getDrawable(R.drawable.test);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onDestroy() &#123;</span><br><span class="line">        super.onDestroy();</span><br><span class="line">        //TODO cancel Thread</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.Context的滥用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">private static Drawable sBackground;</span><br><span class="line"></span><br><span class="line">    @Override  </span><br><span class="line">    protected void onCreate(Bundle state)&#123;</span><br><span class="line">        super.onCreate(state);</span><br><span class="line">        TextView label = new TextView(this);  </span><br><span class="line">        label.setText(&quot;Leaks are bad&quot;);  </span><br><span class="line">        if (sBackground == null) &#123;</span><br><span class="line">            sBackground = getDrawable(R.drawable.large_bitmap);  </span><br><span class="line">            &#125;</span><br><span class="line">        label.setBackgroundDrawable(sBackground);  </span><br><span class="line">        setContentView(label);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，Drawble持有Textiview的引用，TextView持有Activity的引用，即使Activity被销毁，内存仍然不会被释放。 若Context的引用超过其本身生命周期，也会导致内存泄漏，一般用getApplicationContext即可 <em> 使用Application这种Context类型 </em> 对Context的引用不要超过其自身生命周期 <em> 慎重使用Static关键字 </em> context里如果有限程，一定在onDestroy中结束掉 4.在Handler中遇到的问题 当使用内部类创建Handler的时候，Handler会持有一个外部Activity的引用。当Handler中的线程在执行的时候，Activity被GC，这时该线程持有Handler的引用，Handler含有Activity的引用，导致该Activity无法被回收，导致内存泄漏 解决办法： 1.通过程序逻辑来判断，在关闭Activity的同时停止线程，Activity就可以正常在合适的时候被回收。如果Handler是被delay的Message持有了引用，那么使用相应的Handler的removeCallbacks()方法，把消息对象从消息队列移除就行了 2.将Handler声明为静态类，不再持有外部类的引用，所以Activity可以被回收。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends Activity &#123;    </span><br><span class="line">    private final int MSG_DO_SOMETHING = 0;</span><br><span class="line">    private SafeHandler mHandler = new SafeHandler(this);</span><br><span class="line">    private TextView mTextView = null;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        mTextView = new TextView(this);</span><br><span class="line">        Message.obtain(mHandler, MSG_DO_SOMETHING).sendToTarget();</span><br><span class="line">        mHandler.sendMessageDelayed(Message.obtain(mHandler, MSG_DO_SOMETHING), 1000);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line">    static class SafeHandler extends Handler &#123;</span><br><span class="line">        WeakReference mActivityReference;</span><br><span class="line">        SafeHandler(MainActivity activity) &#123;</span><br><span class="line">            mActivityReference= new WeakReference(activity);</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void handleMessage(Message msg) &#123;</span><br><span class="line">            final MainActivity activity = mActivityReference.get();</span><br><span class="line">            if (activity != null) &#123;</span><br><span class="line">                activity.mTextView.setTextColor(Color.WHITE);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onDestroy() &#123;</span><br><span class="line">        super.onDestroy();</span><br><span class="line">        //删除所有Message</span><br><span class="line">        mHandler.removeMessages(MSG_DO_SOMETHING, null);</span><br><span class="line">        //删除Message.what==MSG_DO_SOMETHING的Message</span><br><span class="line">        mHandler.removeMessages(MSG_DO_SOMETHING);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总结：<br>不要让生命周期长于Activity的对象持有到Activity的引用<br>尽量使用Application的Context而不是Activity的Context<br>尽量不要在Activity中使用非静态内部类，因为非静态内部类会隐式持有外部类实例的引用（具体可以查看 细话Java：”失效”的private修饰符 了解）。如果使用静态内部类，将外部实例引用作为弱引用持有。<br>垃圾回收不能解决内存泄露，了解 Android中垃圾回收机制</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2015/07/13/findViewById中返回值为null的几种情况/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bradywang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="brady的小小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/07/13/findViewById中返回值为null的几种情况/" itemprop="url">findViewById中返回值为null的几种情况</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-13T13:19:21+08:00">
+                2015-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这两天遇到了调用findviewById返回值为null的情况，始终没有解决怎么回事，网上查询之后最终找到了解决方案</p>
+<p>1.在一个View中访问另一个View中的控件返回值一定为空，哪怕是Fregment和View的关系也不行。</p>
+<p>2.findViewById的调用一定在setContentView之前，如果在setContentView之后，返回值也会为空</p>
+<p>3.可能是IDE的问题，需要将工程clean重新生成一下就OK</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2015/06/19/一些基础的JAVA面试题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bradywang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="brady的小小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/06/19/一些基础的JAVA面试题总结/" itemprop="url">一些基础的JAVA面试题总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-06-19T13:18:24+08:00">
+                2015-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>List,Set继承了Collection接口，而Map是一个单独的接口；</p>
+<p>List的子类有ArrayList、LinedList和Vector：LinedList和Vector的底层都是基于链表，而ArrayList的底层是基于线性表。LinedList和ArrayList的共同点是线程是不安全的，不同点是ArrayList在做增删元素的时候，效率高，查询效率低；linedList恰好相反；这和它们的底层有关系。</p>
+<p>Set的实现类HashSet,TreeSet。这俩个类都保存了元素的唯一性，但是hashSet的元素是无需的，而TreeSet的元素是有序的。</p>
+<p>Map的实现类：HashMap,HashTable它们的区别是HashMap的key可以为null，而HashMap的key不能为Null;</p>
+<p>当往Map集合中放入相同的key时，前者的key会覆盖后者的key。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2015/04/29/哈尔滨阿里一面跪——从中总结出来的血与泪/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bradywang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="brady的小小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/04/29/哈尔滨阿里一面跪——从中总结出来的血与泪/" itemprop="url">哈尔滨阿里一面跪——从中总结出来的血与泪</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-04-29T13:17:10+08:00">
+                2015-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>4.20号，到哈尔滨参加了阿里的实习生招聘面试。虽然当初本来就没有抱太大的希望，只是想过去试试，看一下自己的水平，发现自己的不足，但是事实证明，自己真的跪的很惨。</p>
+<p>首先是面试经验缺乏的问题。来的时候居然不知道需要自己携带简历以及通关卡。幸亏背着笔记本，匆匆忙忙改了简历，到楼下打印简历，打印巨坑，彩色打印双面居然要我十块钱，和打印店大叔因为某些事也闹得不愉快，只打印了一面简历就匆匆了事。也是我自己准备不充分吧。。。</p>
+<p>然后终于等到自己面试了。面试官看上去年纪并不算太大，也就40岁左右的样子，但是头发全白了。。。对于自己40岁时候的样子，真的画面太美不敢想象。自我介绍因为没有准备好，比较磕巴，也就简单介绍了一下自己。首先上来就问了我关于项目的几个问题。因为自己目前所做的项目还算是比较少，接触的并不算太多，结果回答结果就可想而知了。。。记忆尤新的问过的几个问题首先就是Android的生命周期，这个算是比较简单的了，分别是OnCreate()、OnStart()，OnResume()，OnPause();OnStop(),OnDestory()，这几个很好记，都是一一对应的。然后问了我有没有做过关于Fregment有关的东西，还问了一些关于安卓碎片化的东西，这一点因为自己从来没有看过相关的材料，所以老老实实的回复了否。。。看来我还是嫩了点。然后还有一点觉得自己跪的挺惨的就是问有没有遇到过关于适配的问题，对于这个问题我回答的也不全面，我只是提到了有时候会优先使用dp还有就是某些素材图片的分别使用。回来之后自己查阅资料才发现，对于屏幕适配一共有以下几种方法：</p>
+<p>1.对于dpi不同，对于不同分辨率设置不同的图片，可以解决图片显示不完整以及图片被拉伸的情况。</p>
+<p>2.dpi相同，但是尺寸不同的情况，采取的办法是设置不同的布局文件。系统将会根据不同的布局调用相关的布局。</p>
+<p>下一个问题就是如何使用Android实现mvc。之前在火车上相关看了一些，不过看的还是不全面，大概扯了一点。。。首先面试官让我解释了一下什么是mvc，这个没什么说的，就是模型、试图、控制器。。。</p>
+<hr>
+<p>Android近期学习总结——开发笔记 写道</p>
+<p>Android采用了典型的MVC结构。其表现如下：</p>
+<p>View既可以通过xml(layout目录下)生成，也可以通过硬编码的方式直接通过代码生成。对于xml中的View资源，可以在代码中通过getViewById()的方法获得。</p>
+<p>Model既可以通过xml(values目录下)生成，也可以硬编码的方式直接在代码中指定。View和Model通过Adapter来进行连接。典型的Adapter包括ArrayAdapter(可以Sort()操作)、CusorAdapter(从Cusor中查询到数据源),ListAdapter、SimpleAdapter(最常用)、SpinnerAdapter(它是一个接口，设置Spinner应用SimpleAdapter的setDropDownResource方法)。</p>
+<p>谈对android开发的认识 写道</p>
+<p>Android应用开发一般来说由四大块构成 activity, intent, provider, broadcastreciver.</p>
+<p>从这种结构上来看，android系统是提供了从显示层到数据层到消息机制的一整套的应用开发方案，而且是一种比较先进的解决方案。</p>
+<p>从写android代码的过程中，android项目整体是一种典型的MVC结构，非常类似于主要用于WEB开发的J2EE架构。</p>
+<p>xml布局文件是view相当于JSP页面; activity和intent起到了controller的作用; provider对数据层做了良好的封装，而且provider把数据管理的范畴从数据库泛化到了数据的概念，不光管理数据记录，只要是数据文件(图片、视频、声音文件、所有其他的一切的file)都纳入管理，且提供了数据共享的机制，这是比较出彩的地方; broadcastreceiver提供了一种良好的消息机制，使得一个应用不再是一个信息孤岛，而是和其他的应用、服务等构成了信息网络，从而极大的丰富了应用的开发空间，给了应用开发者极大的想象创造的可能。</p>
+<ol>
+<li>xml布局负责将界面布局做好，并且尽量做到合理分割与减少层次</li>
+<li>Activity做好控件事件绑定与业务流程控制</li>
+<li>Intent做好Activity间的session传递管理</li>
+<li>自己创建Model（可以通过Observer模式进行绑定处理、并且包装好各种provider）将处理数据的工作做好。不建议简单地将各个数据字段散乱地存放在Activity周围，而是借助数据Bean的思路存放在Model下面，这样在Model数据项变得庞大后难于管理与重构，而且这多为非面对对象的设计方案。</li>
+<li>Adapter是数据与呈现的粘合剂</li>
+</ol>
+<hr>
+<p>然后就问了我一些关于JAVA当中的数据结构问题。问我有哪些数据接口。就是些Map、Set、List，没有什么说的。。。然后就让我讲了一下ArrayList和LinkedList的区别，对于线性表还有链表的区别，这也没太多说的。。。然后就是HashSet以及TreeSet、一个查找方便一个是被排序的。。。这个也没问题。接着就问了我HashSet的实现，我说是通过计算哈希值实现的。。。。这回答也有点简单。。。然后就问了我一下如果两个哈希值冲突了怎么办，我回答的是重新计算。我查了之后才知道，对于比较两个数是否相等，一方面要计算它的哈希值是否相等，另一方面也要调用equals()方法，判断两个值是否相等，所以这两个只要有一个不相同，这两个才不同。。。</p>
+<p>然后问了一些关于数据库的知识，首先上来问的事务，这个没什么说的，只要举个例子就能说的很清楚。然后接着问了我数据库索引的实现，这个给跪。。。查了一下，这个用到的B树以及B+树。然后还问了我B树B+树还有B-树他们的区别是什么，这个也跪。。。虽然当初临走的时候还看到了这里，但是没有细看，之前也没有学过。。。。惨跪。。。</p>
+<p>然后就是手写程序了，写程序也很简单，就是把I am a student逆序成为stument a am I，当初信心满满的写完了这个程序，不过最后发现还是跪。。。。因为使用了malloc函数申请了地址空间忘了归还，内存泄露！！！多低级的问题，面试官居然没说。。。还有，差点把’\0’也没写，那字符串该有完没完！！现在想起来肠子都悔青了。。。。不应该遗忘这些基本细节。。。</p>
+<p>最后就是提问环节了，我也不知道提问什么好，就问了一下面试官目前我的缺点还有不足是什么，面试官告诉我有些东西需要了解的深入一些。。。这一点我也懂！！！经历了前面那么多轮的惨跪之后，我已经没有了脾气，只是希望自己能死的更快一些。。。。</p>
+<p>总之对于自己的评价就是，too young,too sample，自己还有很长的路要走，两次面试阿里，阿里的面试官一直很友善， 同时也发现了自己的很多不足。。。目前自己最需要的，应该就是戒骄戒躁，踏踏实实的做好每一件事，认认真真准备秋招吧。。。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2015/03/11/关于校园网drcom登录vpn连接服务器超时的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bradywang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="brady的小小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/03/11/关于校园网drcom登录vpn连接服务器超时的问题/" itemprop="url">关于校园网drcom登录vpn连接服务器超时的问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-11T13:15:49+08:00">
+                2015-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这两天用亚马逊的aws申请了个vps主机，并且用该vps搭建了vpn服务器，个人感觉速度很给力，Facebook，YouTube没有卡顿，一秒钟缓冲50%~但是美中不足的就是校园网登录需要drcom认证，如果登录vpn会导致链接不上登录服务器，登陆不成功，五分钟左右就会掉线，网上最终找到的解决方案就是将内网地址设置例外即可，新建一个bat文件，复制以下内容（以jlu的认证服务器为例）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">for /F “tokens=3” %% in (‘route print ^| findstr “\&lt;0.0.0.0\&gt;”‘) do set “gw=%%“</span><br><span class="line">ipconfig /flushdns</span><br><span class="line">route add 10.0.0.0 mask 255.0.0.0 %gw% metric 25</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+<p>保存右键以管理员权限运行即可，上脸书推特无压力，校园内网又不影响</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2014/12/17/关于MyEclipse中Swing控件出现中文乱码的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bradywang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="brady的小小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/12/17/关于MyEclipse中Swing控件出现中文乱码的问题/" itemprop="url">关于MyEclipse中Swing控件出现中文乱码的问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-12-17T13:14:35+08:00">
+                2014-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这两天做Oracle课程设计，也开始逐渐接触到了GUI的编程，我在这里使用的是MyEclipse中自带的Swt Designer，Swt Designer入手很简单，直接进行拖拽就可以了。很快就设计好了一个界面，不过也遇到了一个问题，运行当中 JLabel中的英文显示正常，但是中文则显示为方框。如图。<br><a href="http://wwdream-wordpress.stor.sinaapp.com/uploads/2014/12/QQ%E6%88%AA%E5%9B%BE20141217115005.png" target="_blank" rel="noopener"><img src="http://wwdream-wordpress.stor.sinaapp.com/uploads/2014/12/QQ%E6%88%AA%E5%9B%BE20141217115005.png" alt="QQ截图20141217115005"></a></p>
+<p>百度之后发现这个是因为中文编码的问题，需要在MyEclipse当中进行配置才可以。</p>
+<p>具体的话参照了这个博客，并且得到了一些想法，具体原因可能就是MyEclipse自带的编译器的原因，需要进行配置解码器</p>
+<p><a href="http://blog.sina.com.cn/s/blog_025270e90101b1db.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_025270e90101b1db.html</a></p>
+<p>首先打开Run Configuration，选择Arguments选项，在VM Arguments选项中添加-Dfile.encoding=GB18030设置编码器即可正常，如图。<a href="http://wwdream-wordpress.stor.sinaapp.com/uploads/2014/12/QQ%E6%88%AA%E5%9B%BE20141217120446.png" target="_blank" rel="noopener"><img src="http://wwdream-wordpress.stor.sinaapp.com/uploads/2014/12/QQ%E6%88%AA%E5%9B%BE20141217120446.png" alt="QQ截图20141217120446"></a></p>
+<p>最终的结果就是这样，大功告成</p>
+<p><a href="http://wwdream-wordpress.stor.sinaapp.com/uploads/2014/12/QQ%E6%88%AA%E5%9B%BE20141217120711-300x173.png" target="_blank" rel="noopener"><img src="http://wwdream-wordpress.stor.sinaapp.com/uploads/2014/12/QQ%E6%88%AA%E5%9B%BE20141217120711-300x173.png" alt="QQ截图20141217120711"></a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2014/12/16/Bash编程初步/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bradywang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="brady的小小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/12/16/Bash编程初步/" itemprop="url">Bash编程初步</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-12-16T13:13:40+08:00">
+                2014-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>明天linux要进行考试，我也连夜准备复习linux，linux很有用的一个功能就是linux的shell编程。</p>
+<p>linux管理文件的过程中，和windows不同的是，linux管理文件是通过文件扩展名进行管理，例如科执行文件就是.exe，对于linux来说，文件名仅仅是一个识别的标识，意义并不大。而更重要的，是文件的属性，即r-w-x三个属性。对于一个编写的shell脚本程序，我们必须要求它具有可执行，也就是x的权限，即在文件执行之前需要加上chmod +x script_file</p>
+<h4 id="运行shell脚本的三种方式"><a href="#运行shell脚本的三种方式" class="headerlink" title="运行shell脚本的三种方式"></a>运行shell脚本的三种方式</h4><ul>
+<li><p>脚本加上可执行权限</p>
+<p>​</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x script_file</span><br></pre></td></tr></table></figure>
+<p>​</p>
+<p>以当前shell的子进程执行，此方法仅能在bash中顺利执行</p>
+</li>
+<li><p>运行/bin/bash把脚本作为他的参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin bash script_file</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>强制当前shell使用bash执行脚本，为此在脚本开头加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br></pre></td></tr></table></figure>
+<p>​</p>
+<p>当前shell遇到#!，会把其后内容作为绝对路径，使用此路径名制定的程序解析其后脚本</p>
+<p>​</p>
+</li>
+</ul>
+<h4 id="一些重要的只读Bash环境变量"><a href="#一些重要的只读Bash环境变量" class="headerlink" title="一些重要的只读Bash环境变量"></a>一些重要的只读Bash环境变量</h4><ul>
+<li>$0 程序的名称</li>
+<li>1−1−9 变量1-9的值</li>
+<li>∗∗@ 所有的参数</li>
+<li>$#命令参数的个数</li>
+<li>$$进程的PID</li>
+<li>$?最近执行进程的状态</li>
+<li>$!最近执行的后台进程的PID</li>
+</ul>
+<h4 id="使用read命令读取数据"><a href="#使用read命令读取数据" class="headerlink" title="使用read命令读取数据"></a>使用read命令读取数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo –n “Enter input:”</span><br><span class="line">read line</span><br><span class="line">echo “You entered:$line“</span><br><span class="line">echo –n “Enter another line:”</span><br><span class="line">read word1 word2 word3</span><br><span class="line">echo “The first word is:$word1”</span><br><span class="line">echo “The second word is:$word2”</span><br><span class="line">echo “The rest of the line is:$word3”</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+<h4 id="给shell脚本传递参数"><a href="#给shell脚本传递参数" class="headerlink" title="给shell脚本传递参数"></a>给shell脚本传递参数</h4><p>1 1 9<br># 参数个数# 参数个数* 所有参数,整个作为字符串<br>@所有参数,每个参数值作为一个字符串@所有参数,每个参数值作为一个字符串0 脚本文件名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo “The command name is: $0.”</span><br><span class="line">echo “The number of command line arguments passed as</span><br><span class="line">parameters are $#“</span><br><span class="line">echo “The value of the command line arguments are: $1 $2 $3</span><br><span class="line">$4 $5 $6 $7 $8 $9“</span><br><span class="line">echo “Another way to display values of all of the arguments:</span><br><span class="line">$@“</span><br><span class="line">echo “Yet another way is:$*“</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+<h4 id="使用shift-n-命令将命令行参数进行平移"><a href="#使用shift-n-命令将命令行参数进行平移" class="headerlink" title="使用shift[n]命令将命令行参数进行平移"></a>使用shift[n]命令将命令行参数进行平移</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo “The program name is: $0.”</span><br><span class="line">echo “The arguments are: $@“</span><br><span class="line">echo “The first three arguments are : $1 $2 $3“</span><br><span class="line">shift</span><br><span class="line">echo “The program name is: $0.”</span><br><span class="line">echo “The arguments are: $@“</span><br><span class="line">echo “The first three arguments are : $1 $2 $3“</span><br><span class="line">shift 3</span><br><span class="line">echo “The program name is: $0.”</span><br><span class="line">echo “The arguments are: $@“</span><br><span class="line">echo “The first three arguments are : $1 $2 $3“</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+<h2 id="循环以及选择控制条件"><a href="#循环以及选择控制条件" class="headerlink" title="循环以及选择控制条件"></a>循环以及选择控制条件</h2><h4 id="if-then-elsif-fi"><a href="#if-then-elsif-fi" class="headerlink" title="if-then-elsif-fi"></a>if-then-elsif-fi</h4><p>语法结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if expression</span><br><span class="line">then</span><br><span class="line">        [elif expression</span><br><span class="line">        then</span><br><span class="line">                then-command-list]</span><br><span class="line">        [else</span><br><span class="line">                else-command-list]</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if expression</span><br><span class="line">   then</span><br><span class="line">      then-commands</span><br><span class="line">   else</span><br><span class="line">      else-commands</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h4 id="多路跳转语句"><a href="#多路跳转语句" class="headerlink" title="多路跳转语句"></a>多路跳转语句</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if expression1</span><br><span class="line">   then</span><br><span class="line">      then-commands</span><br><span class="line">   elif expression2</span><br><span class="line">      elif1-commands</span><br><span class="line">   elif expression3</span><br><span class="line">      elif2-commands</span><br><span class="line">   ...</span><br><span class="line">else</span><br><span class="line">   else-commands</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h4 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h4><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for variable [in argument-list]</span><br><span class="line">do</span><br><span class="line">command-list</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">for people in Debbie Jamie Jhon Kitty Kuhn Shah</span><br><span class="line">do</span><br><span class="line">      echo “$people”</span><br><span class="line">done</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+<h4 id="while-语句"><a href="#while-语句" class="headerlink" title="while 语句"></a>while 语句</h4><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while expression</span><br><span class="line">do</span><br><span class="line">      commandlist</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h4 id="until语句"><a href="#until语句" class="headerlink" title="until语句"></a>until语句</h4><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">until expression</span><br><span class="line">do</span><br><span class="line">     command-list</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">case test-string in</span><br><span class="line">pattern1)command-list1</span><br><span class="line">;;</span><br><span class="line">pattern2)command-list2</span><br><span class="line">;;</span><br><span class="line">...</span><br><span class="line">patternN)command-list1</span><br><span class="line">;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">a=1</span><br><span class="line">b=2</span><br><span class="line">c=$a+$b</span><br><span class="line">echo $c</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dream@dream-Inspiron-5520:~/test$ let &quot;a=8&quot; &quot;b=13&quot;</span><br><span class="line">dream@dream-Inspiron-5520:~/test$ let c=a+b</span><br><span class="line">dream@dream-Inspiron-5520:~/test$ echo $c</span><br><span class="line">21</span><br></pre></td></tr></table></figure>
+<h4 id="使用exprssion命令"><a href="#使用exprssion命令" class="headerlink" title="使用exprssion命令"></a>使用exprssion命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dream@dream-Inspiron-5520:~/test$ a=8 b=13</span><br><span class="line">dream@dream-Inspiron-5520:~/test$ echo &quot;$((a+b))&quot;</span><br><span class="line">21</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2014/12/15/关于Linux当中vi编辑器的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bradywang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="brady的小小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/12/15/关于Linux当中vi编辑器的使用/" itemprop="url">关于Linux当中vi编辑器的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-12-15T13:12:35+08:00">
+                2014-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>自己初识Linux的时候，用的还是Ubuntu中自带的gedit编辑器。原来曾经听说过Linux当中其实也有emacs以及vi这种的工具，可是真心用不习惯。明天就要考Linux了，自己趁这个机会来深入了解一下Linux里面的编辑器，简要学习一下vi的命令。<br>初识VI，因为自己什么也都不懂，刚开始的时候还以为和word一样，曾经尝试过用鼠标去乱点，尝试像word一样能够选中一段文字然后拖动，或者是可以直接点选就可以完成复制粘贴，插入删除。可是事实证明，其实我错了。vi仅仅是一个针对于命令行的文本编辑器，它强大的功能也完全通过命令行来操作，我们可以仅仅依靠命令行就可以实现利用vi编辑器完成段落、文字的复制粘贴、修改删除等等工作，但是命令太多，但是我今天也就静下心来学习一下vi中一些经常用到的模式。<br>我们都众所周知，vi一共有三个模式，分别是插入模式，命令行模式以及底行模式。插入模式，就是我们平常用到的模式，我们一般通过它来完成对文档的编辑工作。而命令行模式和底行模式，一般实现的就是通过命令的方式对文档进行控制，实现文档的增删改查工作等目的。<br>首先要说的就是插入模式，插入模式其实没有什么要多说的，其实也就是在命令行模式之后按i键就可以进入，没有太多可以说的。<br>然后就是命令行模式。在vi中由两种命令控制模式，一种是命令行模式，也就是在编辑模式之后按ESC键退出之后直接输入的就是命令行模式，另外一种就是底行魔兽。我们可以在命令行模式之下按分号进入底行模式，然后就可以执行底行命令模式了。对于命令行模式和底行模式的区别我个人感觉在于命令行模式是针对于文件内容来说的，我们可以通过命令行模式来对文件进行增删改查操作。但是底行模式就是针对于文件本身来说的，一般就是控制文件保存、文件行号的控制等等，下面就简单列举一些常用的vi命令行模式以及底行模式的一些命令。</p>
+<h4 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h4><ul>
+<li>h 光标左移一个字符</li>
+<li>l 光标右移一个字符</li>
+<li>Space 光标右移一个字符</li>
+<li>Backspace 光标左移一个字符</li>
+<li>k或者Ctrl+p 光标上移一行</li>
+<li>j或者Ctrl+n 光标下移一行</li>
+<li>Enter 光标下移一行</li>
+<li>Ctrl+b 屏幕向后翻动一页</li>
+<li>Ctrl+f 屏幕向前翻动一页</li>
+<li>Ctrl+u 屏幕向后翻动半页</li>
+<li>Ctrl+d 屏幕向前翻动半页</li>
+<li>nz 将第n行滚至屏幕顶部，不指定n时将当前行滚至屏幕顶部</li>
+<li>0 移动到当前行的开头</li>
+<li>$ 移动到当前行的行尾</li>
+<li>G 移动到文章的最后</li>
+<li>w 跳到下一个字的开头</li>
+<li>e 跳到下一个字的字尾</li>
+<li>b 跳到上一个子的开头</li>
+<li>） 光标移至句尾</li>
+<li>（ 光标移至句首</li>
+<li>} 光标移至段落开头</li>
+<li>{ 光标移至段落结尾</li>
+<li>nG 光标后移n个位置</li>
+<li>n+ 光标下移n行</li>
+<li>n- 光标上移n行</li>
+<li>n$ 光标移至第n行尾</li>
+<li>H 光标移至屏幕顶行</li>
+<li>M 光标移至屏幕中间行</li>
+<li>L 光标移至屏幕最后行</li>
+<li>i 在光标前插入文本</li>
+<li>I 在当前行首插入文本</li>
+<li>a 光标后插入文本</li>
+<li>A 当前行尾插入文本</li>
+<li>o 当前行之下新开一行</li>
+<li>O 当前行之上新开一行</li>
+<li>r 替换当前字符</li>
+<li>R 替换当前字符及其后的字符，直至按ESC键</li>
+<li>s 从当前光标位置处开始，以输入的文本的替代指定数目的字符</li>
+<li>S 删除制定数目的行，并以所输入文本代替之</li>
+<li>ncw/nCW 修改指定数目的字</li>
+<li>nCC 修改指定数目的行</li>
+<li>ndw 删除光标开始处后的n-1各字</li>
+<li>do 删至行首</li>
+<li>d$ 删至行尾</li>
+<li>ndd 删除当前行及其后n-1行</li>
+<li>x/X 删除一个字符，x删除光标后的，X删除光标前的</li>
+<li>Ctrl+u 删除输入方式下所输入的文本</li>
+</ul>
+<h4 id="搜索及替换命令"><a href="#搜索及替换命令" class="headerlink" title="搜索及替换命令"></a>搜索及替换命令</h4><ul>
+<li>/pattern 从光标开始处向文件尾搜索pattern</li>
+<li>？pattern 从光标开始处向文件首搜索pattern</li>
+<li>n 在同一方向重复上一次搜索命令</li>
+<li>N 在反方向上重复上一次搜索命令</li>
+<li>：s/p1/p2/g 将当前行中的所有的p1均用p2替代</li>
+<li>：n1,n2s/p1/p2/g 将第n1至n2行中所有p1均用p2替代</li>
+<li>：g/p1/s//p2/g:将文件中所有p1均用p2替换</li>
+</ul>
+<h4 id="最后行命令方式"><a href="#最后行命令方式" class="headerlink" title="最后行命令方式"></a>最后行命令方式</h4><ul>
+<li>：n1,n2 con n3：将n1到n2行之间的内容拷贝到第n3行下</li>
+<li>：n1,n2 m n3 :将n1行到n2行之间的内容移至第n3行下</li>
+<li>：n1，n2 d 将n1到n2行之间的内容删除</li>
+<li>：w 保存当前文件</li>
+<li>e filename打开文件进行编辑</li>
+<li>x 保存当前文件并退出</li>
+<li>q 退出vi</li>
+<li>q！ 不保存文件直接退出</li>
+<li>！command 执行shell命令command</li>
+<li>n1,n2 w!command 将文件中n1行至n2行的内容作为command的输入并执行之，若不能指定n1，n2，则表示将整个文件作为command的输入</li>
+<li>r！command 将命令command的输出结果放到当前行</li>
+</ul>
+<h4 id="寄存器（剪贴板）相关操作"><a href="#寄存器（剪贴板）相关操作" class="headerlink" title="寄存器（剪贴板）相关操作"></a>寄存器（剪贴板）相关操作</h4><ul>
+<li>?nyy 将当前行及其下n行的内容保存到寄存器？中，其中？为一个字母，n为一个数字</li>
+<li>？nyw 将当前行及其下n个字保存到寄存器？中，其中？为一个字母，n为一个数字</li>
+<li>？nyl：将当前行及其下n个字符保存到寄存器？中</li>
+<li>？p：取出寄存器？中的内容并将其放到光标位置处</li>
+<li>ndd：将当前行及其下共n行文本删除，并将所删内容放到1号删除寄存器中</li>
+</ul>
 
           
         
@@ -347,6 +1677,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -390,7 +1724,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -398,6 +1732,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>

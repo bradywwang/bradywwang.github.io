@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在我的前一篇博客中我已经添加了1.txt这个文件，现在我要对该文件进行简单的修改，来看一下会发生什么样的变化。我们将1.txt修改为 12hello gitthis is the test file 在git bash中运行一下git status命令，查看运行结果 12345$ git statusOn branch masterChanges not staged for commit:  (">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git的版本控制">
+<meta property="og:url" content="http://bradywang.com/2014/12/11/Git的版本控制/index.html">
+<meta property="og:site_name" content="brady的小小窝">
+<meta property="og:description" content="在我的前一篇博客中我已经添加了1.txt这个文件，现在我要对该文件进行简单的修改，来看一下会发生什么样的变化。我们将1.txt修改为 12hello gitthis is the test file 在git bash中运行一下git status命令，查看运行结果 12345$ git statusOn branch masterChanges not staged for commit:  (">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-17T05:05:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git的版本控制">
+<meta name="twitter:description" content="在我的前一篇博客中我已经添加了1.txt这个文件，现在我要对该文件进行简单的修改，来看一下会发生什么样的变化。我们将1.txt修改为 12hello gitthis is the test file 在git bash中运行一下git status命令，查看运行结果 12345$ git statusOn branch masterChanges not staged for commit:  (">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bradywang.com/2014/12/11/Git的版本控制/"/>
+
+
+
+
+
+  <title>Git的版本控制 | brady的小小窝</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">brady的小小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2014/12/11/Git的版本控制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bradywang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="brady的小小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git的版本控制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-12-11T13:04:31+08:00">
+                2014-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在我的前一篇博客中我已经添加了1.txt这个文件，现在我要对该文件进行简单的修改，来看一下会发生什么样的变化。<br>我们将1.txt修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello git</span><br><span class="line">this is the test file</span><br></pre></td></tr></table></figure>
+<p>在git bash中运行一下git status命令，查看运行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use “git add …” to update what will be committed)</span><br><span class="line">  (use “git checkout – …” to discard changes in working directory)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modified:   1.txt</span><br></pre></td></tr></table></figure>
+<p>Untracked files:<br>(use “git add …” to include in what will be committed)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.txt.bak</span><br></pre></td></tr></table></figure>
+<p>no changes added to commit (use “git add” and/or “git commit -a”)<br>由于我使用的是UltraEdit，对文件进行修改的过程中新生成了1.txt.bak这个文件，所以显示了有一个文件被修改，新增了一个文件。<br>如果想要查看该文件发生了怎样的改变可以使用git diff命令进行查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git diff 1.txt</span><br><span class="line">diff –git a/1.txt b/1.txt</span><br><span class="line">index 773e70b..c82dfa7 100644</span><br><span class="line">— a/1.txt</span><br><span class="line">+++ b/1.txt</span><br><span class="line">@@ -1,2 +1,2 @@</span><br><span class="line">-&lt;U+FEFF&gt;hello world</span><br><span class="line">+&lt;U+FEFF&gt;hello git</span><br><span class="line"> this is the test file</span><br></pre></td></tr></table></figure>
+<p>从git diff的输出结果可以看到，我们通过git diff这个命令来对不同版本之间的改变进行查看。对文件修改之后同样需要使用git add命令对文件进行提交，即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add  1.txt</span><br></pre></td></tr></table></figure>
+<p>使用一下git diff查看一下效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use “git reset HEAD …” to unstage)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modified:   1.txt</span><br></pre></td></tr></table></figure>
+<p>Untracked files:<br>(use “git add …” to include in what will be committed)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.txt.bak</span><br></pre></td></tr></table></figure>
+<p>git add之后，我们就可以放心的进行提交了，执行git commit命令即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m “change the file”</span><br><span class="line">[master 7b57303] change the file</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+<p>然后使用一下git status查看一下仓库的状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">  (use “git add …” to include in what will be committed)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.txt.bak</span><br></pre></td></tr></table></figure>
+<p>nothing added to commit but untracked files present (use “git add” to track)<br>可以发现我们的1.txt已经被成功的提交了<br>如果所有文件都被提交，我们运行git status 会显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working directory clean</span><br></pre></td></tr></table></figure>
+<p>对于git的版本回退，我们也可以做一个练习。</p>
+<p>还是我们的1.txt文件吧。将文件修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello git</span><br><span class="line">Git is free software distributed under the GPL.</span><br></pre></td></tr></table></figure>
+<p>这一次，为了方便起见，我们可以删除UltraEdit自动生成的1.txt.bak文件，</p>
+<p>然后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git add 1.txt</span><br><span class="line">$ git commit -m “add the GPL”</span><br><span class="line">[master b0588af] add the GPL</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+<p>我们可以不断地对文件进行修改，并且将其保存到版本库当中。在每一次保存的过程中，会自动生成一个叫做Commit的快照，一旦改乱了或者删除了文件，可以从最近的一个commit进行恢复。</p>
+<p>我们可以使用git log查看一下对仓库的修改情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit b0588af04fee20769c5245c0fd1e45865a69c00b</span><br><span class="line">Author: dream.wang &lt;dreamsme@foxmail.com&gt;</span><br><span class="line">Date:   Thu Dec 11 14:54:50 2014 +0800</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add the GPL</span><br></pre></td></tr></table></figure>
+<p>commit 7b573033d62a217de669b6d678d4d88e923abfa3<br>Author: dream.wang <a href="mailto:&#100;&#x72;&#101;&#97;&#109;&#115;&#109;&#x65;&#64;&#102;&#111;&#120;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#100;&#x72;&#101;&#97;&#109;&#115;&#109;&#x65;&#64;&#102;&#111;&#120;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a><br>Date: Thu Dec 11 14:48:36 2014 +0800</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">change the file</span><br></pre></td></tr></table></figure>
+<p>commit d091d3b560f2545721748b09a526a6f4d98ed84c<br>Author: dream.wang <a href="mailto:&#x64;&#x72;&#101;&#x61;&#109;&#x73;&#109;&#x65;&#64;&#102;&#111;&#x78;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#x64;&#x72;&#101;&#x61;&#109;&#x73;&#109;&#x65;&#64;&#102;&#111;&#x78;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a><br>Date: Thu Dec 11 14:20:41 2014 +0800</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add a new file</span><br></pre></td></tr></table></figure>
+<p>如果嫌输出信息太复杂，也可以通过git log –pretty=oneline命令进行查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log –pretty=oneline</span><br><span class="line">b0588af04fee20769c5245c0fd1e45865a69c00b add the GPL</span><br><span class="line">7b573033d62a217de669b6d678d4d88e923abfa3 change the file</span><br><span class="line">d091d3b560f2545721748b09a526a6f4d98ed84c add a new file</span><br></pre></td></tr></table></figure>
+<p>我们可以查看每一次提交的commit编号以及commit信息</p>
+<p>在Git中，HEAD表示当前版本，上一个版本就是HEAD^，上上个版本就是HEAD^^，当然网上一百个版本就是后面跟上100个^，可以直接写成HEAD~100</p>
+<p>我们现在的目的就是想把当前版本进行回退</p>
+<p>使用git reset命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset –hard HEAD^</span><br><span class="line">HEAD is now at 7b57303 change the file</span><br></pre></td></tr></table></figure>
+<p>可以查看一下文件内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello git</span><br><span class="line">this is the test file</span><br></pre></td></tr></table></figure>
+<p>我们很容易就可以发现文件已经被改变了</p>
+<p>我们可以利用git log 看一下日志的改变</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log commit 7b573033d62a217de669b6d678d4d88e923abfa3 Author: dream.wang &amp;lt;dreamsme@foxmail.com&amp;gt; Date: Thu Dec 11 14:48:36 2014 +0800</span><br></pre></td></tr></table></figure>
+<p>change the file</p>
+<p>commit d091d3b560f2545721748b09a526a6f4d98ed84c<br>Author: dream.wang <a href="mailto:&#x64;&#x72;&#x65;&#97;&#x6d;&#x73;&#109;&#101;&#64;&#x66;&#111;&#120;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#109;" target="_blank" rel="noopener">&#x64;&#x72;&#x65;&#97;&#x6d;&#x73;&#109;&#101;&#64;&#x66;&#111;&#120;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#109;</a><br>Date: Thu Dec 11 14:20:41 2014 +0800</p>
+<p>add a new file</p>
+<p>我们可以发现，最后面的一条已经消失了，如果我们还记得那一条的commit id，就可以直接使用git reset –hard <strong>\</strong>（只用写前几位就行了），然后Git找到对应的commit id</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset –hard b0588</span><br><span class="line">HEAD is now at b0588af add the GPL</span><br></pre></td></tr></table></figure>
+<p>这样就可以了。</p>
+<p>git进行版本回退的原理可以理解为C语言之间的指针，通过改变当前HEAD指针的指向来确定当前版本。如果忘记了已经回退过得commit版本号我们可以使用git reflog进行查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">b0588af HEAD@&#123;0&#125;: reset: moving to b0588</span><br><span class="line">7b57303 HEAD@&#123;1&#125;: reset: moving to HEAD^</span><br><span class="line">800cab1 HEAD@&#123;2&#125;: commit (amend): add the GPL</span><br><span class="line">b0588af HEAD@&#123;3&#125;: commit: add the GPL</span><br><span class="line">7b57303 HEAD@&#123;4&#125;: commit: change the file</span><br><span class="line">d091d3b HEAD@&#123;5&#125;: commit (initial): add a new file</span><br></pre></td></tr></table></figure>
+<p>工作区：也就是working directory，也就是电脑内能看到的目录</p>
+<p>版本库：工作区内的隐藏目录.git，里面包含了称为stage or index的暂存区，以及master分支和指向master的HEAD指针。</p>
+<p>git add是将所有要提交的文件修改先存放到暂存区，然后通过git commit命令将暂存区的修改提交到分支。</p>
+<p>———————————————这里是华丽丽的分割线———————————<br>我们可以用git status查看状态，使用git diff命令查看发生过修改的地方，发生修改后需要使用git add 以及git commit进行提交。commit是通过SHA1计算出的一个非常大的编号，避免多人协作的过程当中版本号出现冲突。<br>HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset –hard commit_id。<br>穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。<br>要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/11/Git的版本库创建/" rel="next" title="Git的版本库创建">
+                <i class="fa fa-chevron-left"></i> Git的版本库创建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/12/简单的Linux命令/" rel="prev" title="简单的Linux命令">
+                简单的Linux命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">bradywang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bradywang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
