@@ -229,6 +229,204 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2014/12/15/关于Linux当中vi编辑器的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bradywang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="brady的小小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2014/12/15/关于Linux当中vi编辑器的使用/" itemprop="url">关于Linux当中vi编辑器的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-12-15T13:12:35+08:00">
+                2014-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>自己初识Linux的时候，用的还是Ubuntu中自带的gedit编辑器。原来曾经听说过Linux当中其实也有emacs以及vi这种的工具，可是真心用不习惯。明天就要考Linux了，自己趁这个机会来深入了解一下Linux里面的编辑器，简要学习一下vi的命令。<br>初识VI，因为自己什么也都不懂，刚开始的时候还以为和word一样，曾经尝试过用鼠标去乱点，尝试像word一样能够选中一段文字然后拖动，或者是可以直接点选就可以完成复制粘贴，插入删除。可是事实证明，其实我错了。vi仅仅是一个针对于命令行的文本编辑器，它强大的功能也完全通过命令行来操作，我们可以仅仅依靠命令行就可以实现利用vi编辑器完成段落、文字的复制粘贴、修改删除等等工作，但是命令太多，但是我今天也就静下心来学习一下vi中一些经常用到的模式。<br>我们都众所周知，vi一共有三个模式，分别是插入模式，命令行模式以及底行模式。插入模式，就是我们平常用到的模式，我们一般通过它来完成对文档的编辑工作。而命令行模式和底行模式，一般实现的就是通过命令的方式对文档进行控制，实现文档的增删改查工作等目的。<br>首先要说的就是插入模式，插入模式其实没有什么要多说的，其实也就是在命令行模式之后按i键就可以进入，没有太多可以说的。<br>然后就是命令行模式。在vi中由两种命令控制模式，一种是命令行模式，也就是在编辑模式之后按ESC键退出之后直接输入的就是命令行模式，另外一种就是底行魔兽。我们可以在命令行模式之下按分号进入底行模式，然后就可以执行底行命令模式了。对于命令行模式和底行模式的区别我个人感觉在于命令行模式是针对于文件内容来说的，我们可以通过命令行模式来对文件进行增删改查操作。但是底行模式就是针对于文件本身来说的，一般就是控制文件保存、文件行号的控制等等，下面就简单列举一些常用的vi命令行模式以及底行模式的一些命令。</p>
+<h4 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h4><ul>
+<li>h 光标左移一个字符</li>
+<li>l 光标右移一个字符</li>
+<li>Space 光标右移一个字符</li>
+<li>Backspace 光标左移一个字符</li>
+<li>k或者Ctrl+p 光标上移一行</li>
+<li>j或者Ctrl+n 光标下移一行</li>
+<li>Enter 光标下移一行</li>
+<li>Ctrl+b 屏幕向后翻动一页</li>
+<li>Ctrl+f 屏幕向前翻动一页</li>
+<li>Ctrl+u 屏幕向后翻动半页</li>
+<li>Ctrl+d 屏幕向前翻动半页</li>
+<li>nz 将第n行滚至屏幕顶部，不指定n时将当前行滚至屏幕顶部</li>
+<li>0 移动到当前行的开头</li>
+<li>$ 移动到当前行的行尾</li>
+<li>G 移动到文章的最后</li>
+<li>w 跳到下一个字的开头</li>
+<li>e 跳到下一个字的字尾</li>
+<li>b 跳到上一个子的开头</li>
+<li>） 光标移至句尾</li>
+<li>（ 光标移至句首</li>
+<li>} 光标移至段落开头</li>
+<li>{ 光标移至段落结尾</li>
+<li>nG 光标后移n个位置</li>
+<li>n+ 光标下移n行</li>
+<li>n- 光标上移n行</li>
+<li>n$ 光标移至第n行尾</li>
+<li>H 光标移至屏幕顶行</li>
+<li>M 光标移至屏幕中间行</li>
+<li>L 光标移至屏幕最后行</li>
+<li>i 在光标前插入文本</li>
+<li>I 在当前行首插入文本</li>
+<li>a 光标后插入文本</li>
+<li>A 当前行尾插入文本</li>
+<li>o 当前行之下新开一行</li>
+<li>O 当前行之上新开一行</li>
+<li>r 替换当前字符</li>
+<li>R 替换当前字符及其后的字符，直至按ESC键</li>
+<li>s 从当前光标位置处开始，以输入的文本的替代指定数目的字符</li>
+<li>S 删除制定数目的行，并以所输入文本代替之</li>
+<li>ncw/nCW 修改指定数目的字</li>
+<li>nCC 修改指定数目的行</li>
+<li>ndw 删除光标开始处后的n-1各字</li>
+<li>do 删至行首</li>
+<li>d$ 删至行尾</li>
+<li>ndd 删除当前行及其后n-1行</li>
+<li>x/X 删除一个字符，x删除光标后的，X删除光标前的</li>
+<li>Ctrl+u 删除输入方式下所输入的文本</li>
+</ul>
+<h4 id="搜索及替换命令"><a href="#搜索及替换命令" class="headerlink" title="搜索及替换命令"></a>搜索及替换命令</h4><ul>
+<li>/pattern 从光标开始处向文件尾搜索pattern</li>
+<li>？pattern 从光标开始处向文件首搜索pattern</li>
+<li>n 在同一方向重复上一次搜索命令</li>
+<li>N 在反方向上重复上一次搜索命令</li>
+<li>：s/p1/p2/g 将当前行中的所有的p1均用p2替代</li>
+<li>：n1,n2s/p1/p2/g 将第n1至n2行中所有p1均用p2替代</li>
+<li>：g/p1/s//p2/g:将文件中所有p1均用p2替换</li>
+</ul>
+<h4 id="最后行命令方式"><a href="#最后行命令方式" class="headerlink" title="最后行命令方式"></a>最后行命令方式</h4><ul>
+<li>：n1,n2 con n3：将n1到n2行之间的内容拷贝到第n3行下</li>
+<li>：n1,n2 m n3 :将n1行到n2行之间的内容移至第n3行下</li>
+<li>：n1，n2 d 将n1到n2行之间的内容删除</li>
+<li>：w 保存当前文件</li>
+<li>e filename打开文件进行编辑</li>
+<li>x 保存当前文件并退出</li>
+<li>q 退出vi</li>
+<li>q！ 不保存文件直接退出</li>
+<li>！command 执行shell命令command</li>
+<li>n1,n2 w!command 将文件中n1行至n2行的内容作为command的输入并执行之，若不能指定n1，n2，则表示将整个文件作为command的输入</li>
+<li>r！command 将命令command的输出结果放到当前行</li>
+</ul>
+<h4 id="寄存器（剪贴板）相关操作"><a href="#寄存器（剪贴板）相关操作" class="headerlink" title="寄存器（剪贴板）相关操作"></a>寄存器（剪贴板）相关操作</h4><ul>
+<li>?nyy 将当前行及其下n行的内容保存到寄存器？中，其中？为一个字母，n为一个数字</li>
+<li>？nyw 将当前行及其下n个字保存到寄存器？中，其中？为一个字母，n为一个数字</li>
+<li>？nyl：将当前行及其下n个字符保存到寄存器？中</li>
+<li>？p：取出寄存器？中的内容并将其放到光标位置处</li>
+<li>ndd：将当前行及其下共n行文本删除，并将所删内容放到1号删除寄存器中</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://bradywang.com/2014/12/15/Unix中一些有用的配置文件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -985,9 +1183,9 @@
 <p>我们可以使用git log查看一下对仓库的修改情况</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit b0588af04fee20769c5245c0fd1e45865a69c00b</span><br><span class="line">Author: dream.wang &lt;dreamsme@foxmail.com&gt;</span><br><span class="line">Date:   Thu Dec 11 14:54:50 2014 +0800</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add the GPL</span><br></pre></td></tr></table></figure>
-<p>commit 7b573033d62a217de669b6d678d4d88e923abfa3<br>Author: dream.wang <a href="mailto:&#100;&#x72;&#101;&#97;&#109;&#115;&#109;&#x65;&#64;&#102;&#111;&#120;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#100;&#x72;&#101;&#97;&#109;&#115;&#109;&#x65;&#64;&#102;&#111;&#120;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a><br>Date: Thu Dec 11 14:48:36 2014 +0800</p>
+<p>commit 7b573033d62a217de669b6d678d4d88e923abfa3<br>Author: dream.wang <a href="mailto:&#x64;&#x72;&#101;&#x61;&#109;&#115;&#x6d;&#x65;&#x40;&#102;&#x6f;&#120;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;" target="_blank" rel="noopener">&#x64;&#x72;&#101;&#x61;&#109;&#115;&#x6d;&#x65;&#x40;&#102;&#x6f;&#120;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a><br>Date: Thu Dec 11 14:48:36 2014 +0800</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">change the file</span><br></pre></td></tr></table></figure>
-<p>commit d091d3b560f2545721748b09a526a6f4d98ed84c<br>Author: dream.wang <a href="mailto:&#x64;&#x72;&#101;&#x61;&#109;&#x73;&#109;&#x65;&#64;&#102;&#111;&#x78;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#x64;&#x72;&#101;&#x61;&#109;&#x73;&#109;&#x65;&#64;&#102;&#111;&#x78;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a><br>Date: Thu Dec 11 14:20:41 2014 +0800</p>
+<p>commit d091d3b560f2545721748b09a526a6f4d98ed84c<br>Author: dream.wang <a href="mailto:&#x64;&#114;&#101;&#97;&#109;&#x73;&#x6d;&#101;&#64;&#102;&#x6f;&#x78;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#x64;&#114;&#101;&#97;&#109;&#x73;&#x6d;&#101;&#64;&#102;&#x6f;&#x78;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;</a><br>Date: Thu Dec 11 14:20:41 2014 +0800</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add a new file</span><br></pre></td></tr></table></figure>
 <p>如果嫌输出信息太复杂，也可以通过git log –pretty=oneline命令进行查看</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log –pretty=oneline</span><br><span class="line">b0588af04fee20769c5245c0fd1e45865a69c00b add the GPL</span><br><span class="line">7b573033d62a217de669b6d678d4d88e923abfa3 change the file</span><br><span class="line">d091d3b560f2545721748b09a526a6f4d98ed84c add a new file</span><br></pre></td></tr></table></figure>
@@ -1002,7 +1200,7 @@
 <p>我们可以利用git log 看一下日志的改变</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log commit 7b573033d62a217de669b6d678d4d88e923abfa3 Author: dream.wang &amp;lt;dreamsme@foxmail.com&amp;gt; Date: Thu Dec 11 14:48:36 2014 +0800</span><br></pre></td></tr></table></figure>
 <p>change the file</p>
-<p>commit d091d3b560f2545721748b09a526a6f4d98ed84c<br>Author: dream.wang <a href="mailto:&#x64;&#x72;&#x65;&#97;&#x6d;&#x73;&#109;&#101;&#64;&#x66;&#111;&#120;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#109;" target="_blank" rel="noopener">&#x64;&#x72;&#x65;&#97;&#x6d;&#x73;&#109;&#101;&#64;&#x66;&#111;&#120;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#109;</a><br>Date: Thu Dec 11 14:20:41 2014 +0800</p>
+<p>commit d091d3b560f2545721748b09a526a6f4d98ed84c<br>Author: dream.wang <a href="mailto:&#100;&#x72;&#101;&#x61;&#x6d;&#x73;&#109;&#x65;&#x40;&#x66;&#111;&#120;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;" target="_blank" rel="noopener">&#100;&#x72;&#101;&#x61;&#x6d;&#x73;&#109;&#x65;&#x40;&#x66;&#111;&#120;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a><br>Date: Thu Dec 11 14:20:41 2014 +0800</p>
 <p>add a new file</p>
 <p>我们可以发现，最后面的一条已经消失了，如果我们还记得那一条的commit id，就可以直接使用git reset –hard <strong>\</strong>（只用写前几位就行了），然后Git找到对应的commit id</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset –hard b0588</span><br><span class="line">HEAD is now at b0588af add the GPL</span><br></pre></td></tr></table></figure>
@@ -1558,145 +1756,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bradywang.com/2014/03/30/关于Android学习的一些规划/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="bradywang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="brady的小小窝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2014/03/30/关于Android学习的一些规划/" itemprop="url">关于Android学习的一些规划</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-03-30T12:59:42+08:00">
-                2014-03-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>从开学到现在，生活一直处于一种无序状态，不知道应该去做什么，也不应该去怎样做，就静下心来，去好好做一个关于安卓学习的规划吧。</p>
-<p>首先，是安卓布局与对象的学习，看了mars视频的第一季，略微对安卓布局有了一些印象，但是现在还是不是很够，很多地方都是还需要加强一下</p>
-<p>首先要理解学会文件布局的两种方式，分别为xml布局和java文件布局，尤其是对于java文件的掌握要进行加强。其次就是xml文件的布局方式，其实这应该作为安卓控件布局的重点来掌握，因为这种布局方式最简单明了，也最能够反映各种控件的属性状态。其次就是各种控件的学习方向了，虽然之前对于控件了解过一些，但是对于今后的学习掌握并不够，而且时间长之后都已经忘得差不多了，应该更深入的去学习了解。其次就是布局方式的学习了，布局方式对于自己来说掌握的顶多是线性布局，对于相对布局的了解都并不是很多，对于这里的掌握程度应该加强，只有充分了解了布局方式，才能够布局出漂亮的app界面。</p>
-<p>其次，要学会看android的开发文档，基于sdk进行系统的了解，以便查询自己所需要的属性和方法。</p>
-<p>计划时间：2周 学习内容：第二章</p>
-<p>接下来就是要事件的处理，这一部分主要涉及的就是函数的重写操作，以及对象的绑定共工作，计划几天搞定</p>
-<p>计划时间：4天 学习内容：第三章</p>
-<p>下面的两章联系比较紧密，涉及到的是Activity以及Intent和IntentFilter，熟悉各个Activity之间的关系以及交互方式，计划一周搞定</p>
-<p>计划时间：1周 学习内容：第四、五章</p>
-<p>下面的一张主要介绍的安卓资源，例如drawable对象之类的，这部分并不是重点，随便看看就好</p>
-<p>计划时间：2天 学习内容：第六章</p>
-<p>第七章主要涉及的是图像的处理操作，如果暂时不专注于安卓图形，游戏等方面的开发的话可以先放一份，放到最后再学</p>
-<p>第八章介绍了关于文件盒SQLite的相关信息，这一样可以留意一下，留一周左右吧</p>
-<p>计划时间：1周，学习内容 第八章</p>
-<p>contentprivider这个的话主要是设计的不同软件之间的互相交互问题，可以作为一个contentprivider或者进行调用，比如说系统的通讯录或者短信等的读取这个可以和broadcaster一起看</p>
-<p>计划时间:10天 学习内容：第9、10章</p>
-<p>接下来的时间的话需要对一些系统调用比较了解，例如录音、播放声音、拍照等等，暂时并不需要研究的太深，看的差不多就可以了计划时间：4天 学习内容：第11章</p>
-<p>安卓的网络应用，不用说也是非常非常的重点了，目前的安卓软件基本与网络是息息相关的，所以这部分必须要掌握，所以要留下比较长的时间来看，规划两周吧</p>
-<p>计划时间：2周 学习内容：第13章</p>
-<p>剩下的基本就差不多了，自己平时看看吧，学习了网络之后基本就具有了开发的基础了，可以对安卓进行进一步的学习了，可以做一些小实例什么的，逐渐慢慢做一些小项目进行练习吧</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1747,7 +1806,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
